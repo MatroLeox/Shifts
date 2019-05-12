@@ -8,4 +8,5 @@ public interface ShiftsHelper {
 
     Shift getShift(Calendar date, ClassName className);
     ClassName getClassName(Calendar date, Shift shift);
+    ClassName getClassName(Calendar date);
 }

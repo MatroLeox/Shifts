@@ -57,6 +57,7 @@ int getShift(Calendar cal) {
     int cycle = 8;
 
     int result = (timeInMillis / dayInMillis) % cycle;
+    return result;
 }
 ```
 
@@ -89,6 +90,7 @@ int getShift(Calendar cal) {
     int delta;
 
     int result = ((timeInMillis / dayInMillis) + delta) % cycle;
+    return result;
 }
 ```
 

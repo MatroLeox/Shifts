@@ -1,5 +1,7 @@
 package matroleox.shifts;
 
+import java.util.Calendar;
+
 public class LiangbandaoTable implements ShiftsTable {
     
     private Shift[] shiftGroup = {
@@ -16,6 +18,9 @@ public class LiangbandaoTable implements ShiftsTable {
         new ClassName(3, "四班", "丁班")
     };
 
+    private final int BAIBAN_BEGIN_IN_MINUTE = 7 * 60 + 30;
+    private final int YIEBAN_BEGIN_IN_MINUTE = 19 * 60 + 30;
+
     @Override
     public int getRepetition() {
         return 0;
@@ -30,6 +35,18 @@ public class LiangbandaoTable implements ShiftsTable {
     public int getCycle() {
         return shiftGroup.length;
     }
+
+    @Override
+    public int getAntedateInMillis() {
+        return -((7 * 60 + 30) * 60 * 1000);
+    }
+
+    @Override
+    public Shift getShift(Calendar date) {
+        int timeInMinute = date.get(Calendar.HOUR_OF_DAY) * 60 + date.get(Calendar.MINUTE);
+        return shiftGroup[timeInMinute >= BAIBAN_BEGIN_IN_MINUTE && timeInMinute < YIEBAN_BEGIN_IN_MINUTE ? 0 : 1];
+    }
+    
 
     @Override
     public Shift getShift(int index) {

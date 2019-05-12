@@ -1,5 +1,7 @@
 package matroleox.shifts;
 
+import java.util.Calendar;
+
 public class SanbandaoTable implements ShiftsTable {
     
     private Shift[] shiftGroup = {
@@ -20,6 +22,10 @@ public class SanbandaoTable implements ShiftsTable {
         new ClassName(3, "四班", "丁班")
     };
 
+    private final int WANBAN_BEGIN_IN_MINUTE = 23 * 60 + 30;
+    private final int ZAOBAN_BEGIN_IN_MINUTE = 7 * 60 + 30;
+    private final int ZHONGBAN_BEGIN_IN_MINUTE = 15 * 60 + 30;
+
     @Override
     public int getRepetition() {
         return 1;
@@ -33,6 +39,31 @@ public class SanbandaoTable implements ShiftsTable {
     @Override
     public int getCycle() {
         return shiftGroup.length;
+    }
+
+    @Override
+    public int getAntedateInMillis() {
+        return 30 * 60 * 1000;
+    }
+
+    @Override
+    public Shift getShift(Calendar date) {
+        int timeInMinute = date.get(Calendar.HOUR_OF_DAY) * 60 + date.get(Calendar.MINUTE);
+        int index;
+        if (timeInMinute >= ZAOBAN_BEGIN_IN_MINUTE && timeInMinute < ZHONGBAN_BEGIN_IN_MINUTE) {
+            index = 2;
+        } else if (timeInMinute >= ZHONGBAN_BEGIN_IN_MINUTE && timeInMinute < WANBAN_BEGIN_IN_MINUTE) {
+            index = 4;
+        } else {
+            index = 0;
+        }
+        return shiftGroup[index + getOffset(date)];
+    }
+
+    private int getOffset(Calendar date) {
+        long timeInMillis = date.getTimeInMillis() + date.get(Calendar.ZONE_OFFSET) + getAntedateInMillis();
+        final int DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
+        return (int) (timeInMillis / DAY_IN_MILLIS % (getRepetition() + 1));
     }
 
     @Override

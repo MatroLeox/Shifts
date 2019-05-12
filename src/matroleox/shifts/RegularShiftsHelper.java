@@ -63,4 +63,12 @@ public class RegularShiftsHelper implements ShiftsHelper {
         int index = getClassNameInInt(date, shift);
         return shiftsTable.getClassName(index);
     }
+
+    @Override
+    public ClassName getClassName(Calendar date) {
+        Shift shift = shiftsTable.getShift(date);
+        date = (Calendar) date.clone();
+        date.add(Calendar.MILLISECOND, shiftsTable.getAntedateInMillis());
+        return getClassName(date, shift);
+    }
 }
