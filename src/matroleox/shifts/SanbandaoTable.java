@@ -22,9 +22,9 @@ public class SanbandaoTable implements ShiftsTable {
         new ClassName(3, "四班", "丁班")
     };
 
-    private final int WANBAN_BEGIN_IN_MINUTE = 23 * 60 + 30;
-    private final int ZAOBAN_BEGIN_IN_MINUTE = 7 * 60 + 30;
-    private final int ZHONGBAN_BEGIN_IN_MINUTE = 15 * 60 + 30;
+    private final int WANBAN_BEGIN_IN_MINUTE = 0; // 晚班开始时间 24：00
+    private final int ZAOBAN_BEGIN_IN_MINUTE = 8 * 60; // 早班开始时间 8：00
+    private final int ZHONGBAN_BEGIN_IN_MINUTE = 16 * 60;// 中班开始时间 16：00
 
     @Override
     public int getRepetition() {
@@ -43,7 +43,7 @@ public class SanbandaoTable implements ShiftsTable {
 
     @Override
     public int getAntedateInMillis() {
-        return 30 * 60 * 1000;
+        return 0;
     }
 
     @Override

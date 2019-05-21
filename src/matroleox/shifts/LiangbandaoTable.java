@@ -18,8 +18,8 @@ public class LiangbandaoTable implements ShiftsTable {
         new ClassName(3, "四班", "丁班")
     };
 
-    private final int BAIBAN_BEGIN_IN_MINUTE = 7 * 60 + 30;
-    private final int YIEBAN_BEGIN_IN_MINUTE = 19 * 60 + 30;
+    private final int BAIBAN_BEGIN_IN_MINUTE = 8 * 60; // 白班开始时间 8：00
+    private final int YIEBAN_BEGIN_IN_MINUTE = 20 * 60; //夜班开始时间 20：00
 
     @Override
     public int getRepetition() {
@@ -28,7 +28,7 @@ public class LiangbandaoTable implements ShiftsTable {
 
     @Override
     public int getDelta() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class LiangbandaoTable implements ShiftsTable {
 
     @Override
     public int getAntedateInMillis() {
-        return -((7 * 60 + 30) * 60 * 1000);
+        return -(8 * 60 * 60 * 1000);  // 以早上8：00为节点，区别前后天的班次
     }
 
     @Override
