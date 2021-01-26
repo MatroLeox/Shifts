@@ -5,9 +5,9 @@ import java.util.Calendar;
 public class LiangbandaoTable implements ShiftsTable {
     
     private Shift[] shiftGroup = {
-        new Shift(0, "白班", "白", "8-20"),
-        new Shift(1, "夜班", "夜", "20-8"),
-        new Shift(2, "休息1", "休", ""),
+        new Shift(0, "夜班", "夜", "20-8"),
+        new Shift(1, "休息1", "休", "8-20"),
+        new Shift(2, "白班", "白", ""),
         new Shift(3, "休息2", "休", "")
     };
 
@@ -28,7 +28,7 @@ public class LiangbandaoTable implements ShiftsTable {
 
     @Override
     public int getDelta() {
-        return 1;
+        return -1;
     }
 
     @Override
